@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-A production-ready, full-stack movie theater seat reservation system built with modern web technologies. The application handles real-time seat availability, concurrent bookings, payment processing simulation, and reward points management.
+A production-ready, full-stack movie theater seat reservation system built with modern web technologies. The application handles real-time seat availability, concurrent bookings, reservation confirmation, and reward points tracking.
 
 ## Live Application
 
@@ -14,13 +14,13 @@ A production-ready, full-stack movie theater seat reservation system built with 
 
 ### Core Functionality
 
-- **User Authentication & Authorization**: Secure JWT-based authentication with token refresh
+- **User Authentication & Authorization**: Secure JWT-based authentication with session management
 - **Movie Catalog Integration**: Real-time movie data from TMDB API with caching
 - **Dynamic Seat Selection**: Interactive seat map with real-time availability updates
 - **Seat Locking Mechanism**: 5-minute temporary locks using Redis to prevent double-booking
 - **Add-ons Upselling**: Food, beverages, and accessories with dynamic pricing
 - **Reservation Management**: Complete booking lifecycle with cancellation support
-- **Reward Points System**: Earn points on bookings, spend on cancellations
+- **Reward Points System**: Earn points on bookings, tracked across user sessions
 - **Concurrent User Handling**: Redis-based distributed locks and MongoDB transactions
 
 ### Technical Highlights
@@ -41,7 +41,7 @@ A production-ready, full-stack movie theater seat reservation system built with 
 - **Language**: TypeScript for type safety
 - **Database**: MongoDB Atlas (cloud-hosted)
 - **Cache Layer**: Redis (Upstash) for distributed locks and caching
-- **Authentication**: JWT with httpOnly cookies
+- **Authentication**: JWT with secure token-based authentication
 - **External API**: TMDB API for movie data
 - **Deployment**: Koyeb (Docker container)
 
@@ -104,7 +104,7 @@ A production-ready, full-stack movie theater seat reservation system built with 
 
 - **Password Security**: bcrypt hashing with salt rounds
 - **JWT Tokens**: Secure token generation with expiry
-- **HTTP-only Cookies**: XSS protection for auth tokens
+- **Token Storage**: Client-side token management with secure transmission
 - **CORS Configuration**: Whitelisted origins only
 - **Environment Variables**: Sensitive data protection
 - **Input Validation**: Request validation and sanitization
@@ -205,17 +205,17 @@ The AI served as a collaborative partner in brainstorming, architecture design, 
 ### Seat Locking Flow
 
 1. User selects seats → Temporary lock acquired (5 minutes)
-2. Lock extends automatically when user is active
-3. Other users see locked seats as unavailable
-4. Lock expires if payment not completed
-5. Seats released back to pool automatically
+2. Other users see locked seats as unavailable
+3. User proceeds through add-ons selection and payment
+4. Lock expires after 5 minutes if payment not completed
+5. Seats automatically released back to pool on expiry
 
 ### Reward Points System
 
-- Earn 10% of booking amount as reward points
-- 1 point = $1 USD equivalent value
-- Spend points to waive cancellation fees
-- Points deducted on cancellation if applicable
+- Earn 1 point per confirmed booking
+- Points are tracked in user profile
+- Points are deducted when cancelling a reservation
+- Encourages user engagement and repeat bookings
 
 ### Concurrent Booking Prevention
 
