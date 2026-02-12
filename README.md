@@ -2,6 +2,12 @@
 
 A full-stack web application for managing movie theater seat reservations with real-time availability, seat locking, and concurrent booking support.
 
+## Live Demo
+
+- **Frontend**: https://nordivo-assessment.vercel.app
+- **Backend API**: https://thoughtful-dona-anasproject-2cdd5428.koyeb.app
+- **GitHub Repository**: https://github.com/anassohail99/Nordivo-Assessment
+
 ## Tech Stack
 
 ### Backend
